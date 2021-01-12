@@ -1,0 +1,73 @@
+#+title: Org-mode configuration
+
+This is my emacs config as a literate org-mode file.
+
+Load it with =(org-babel-load-file "~/.emacs.d/path/to/config.org")= in =init.el=
+
+* Babel
+
+Support a few languages
+
+#+BEGIN_SRC emacs-lisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((ruby . t)
+     (python . t)))
+#+END_SRC
+
+Auto-confirm evals
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-confirm-babel-evaluate nil)
+#+END_SRC
+
+Log when tasks are done
+
+#+BEGIN_SRC emacs-lisp 
+  (setq org-log-done t)
+#+END_SRC
+
+* Set the theme
+
+#+BEGIN_SRC emacs-lisp
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(custom-enabled-themes (quote (wombat))))
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   )
+#+END_SRC
+
+* Lean
+
+Initialize packages. This is not specific to lean and should probably move.
+
+#+BEGIN_SRC emacs-lisp
+  (require 'package)
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+  (package-initialize) ; You might already have this line
+  (global-set-key (kbd "S-SPC") #'company-complete)
+#+END_SRC
+
+* Windmove
+
+Use the default keybindings (S-<arrow>)
+
+#+BEGIN_SRC emacs-lisp
+  (windmove-default-keybindings)
+#+END_SRC
+
+Make windmove work in Org mode
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-shiftup-final-hook 'windmove-up)
+  (add-hook 'org-shiftleft-final-hook 'windmove-left)
+  (add-hook 'org-shiftdown-final-hook 'windmove-down)
+  (add-hook 'org-shiftright-final-hook 'windmove-right)
+#+END_SRC

@@ -4,6 +4,16 @@ This is my emacs config as a literate org-mode file.
 
 Load it with =(org-babel-load-file "~/.emacs.d/path/to/config.org")= in =init.el=
 
+Thanks to [[https://www.youtube.com/watch?v=SzA2YODtgK4&t=1236s][Harry Schwartz for the inspiration]].
+
+* Org-mode
+
+Log when tasks are done
+
+#+BEGIN_SRC emacs-lisp 
+  (setq org-log-done t)
+#+END_SRC
+
 * Babel
 
 Support a few languages
@@ -19,12 +29,6 @@ Auto-confirm evals
 
 #+BEGIN_SRC emacs-lisp
   (setq org-confirm-babel-evaluate nil)
-#+END_SRC
-
-Log when tasks are done
-
-#+BEGIN_SRC emacs-lisp 
-  (setq org-log-done t)
 #+END_SRC
 
 * Set the theme

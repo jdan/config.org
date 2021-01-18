@@ -14,6 +14,24 @@ Log when tasks are done
   (setq org-log-done t)
 #+END_SRC
 
+* LaTeX
+
+Make sure you install LaTeX and some extras with
+
+=sudo apt-get install texlive texlive-latex-extra=
+
+Then initialize latex support in emacs.
+
+#+BEGIN_SRC emacs-lisp
+  (require 'ox-latex)
+  (unless (boundp 'org-latex-classes)
+    (setq org-latex-classes nil))
+  (add-to-list 'org-latex-classes
+	       '("article"
+		 "\\documentclass{article}"
+		 ("\\section{%s}" . "\\section*{%s}")))
+#+END_SRC
+
 * Babel
 
 Support a few languages
@@ -22,7 +40,8 @@ Support a few languages
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((ruby . t)
-     (python . t)))
+     (python . t)
+     (J . t)))
 #+END_SRC
 
 Auto-confirm evals
@@ -74,4 +93,33 @@ Make windmove work in Org mode
   (add-hook 'org-shiftleft-final-hook 'windmove-left)
   (add-hook 'org-shiftdown-final-hook 'windmove-down)
   (add-hook 'org-shiftright-final-hook 'windmove-right)
+#+END_SRC
+* Capture
+
+Set up captures to find a home in =notes.org=
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-default-notes-file (concat org-directory "/notes.org"))
+#+END_SRC
+
+Set up a =C-c x= to capture notes
+
+#+BEGIN_SRC emacs-lisp
+  (define-key global-map (kbd "C-c x")
+    (lambda () (interactive) (org-capture nil "t")))
+#+END_SRC
+* Eval-buffer
+
+Set F5 to `eval-buffer`, which is useful for my koans work but might
+prove useful later.
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key [f5] 'eval-buffer)
+#+END_SRC
+* MELPA
+
+#+BEGIN_SRC emacs-lisp
+  (require 'package)
+  (add-to-list 'package-archives
+               '("melpa" . "http://melpa.org/packages/") t)
 #+END_SRC

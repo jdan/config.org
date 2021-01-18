@@ -123,3 +123,35 @@ prove useful later.
   (add-to-list 'package-archives
                '("melpa" . "http://melpa.org/packages/") t)
 #+END_SRC
+
+* j-mode
+
+When we open an .ijs file, start =jconsole= in a pane on the right.
+
+#+BEGIN_SRC emacs-lisp
+  (defun j-hooks ()
+    (interactive)
+    (split-window-horizontally)
+    (j-console)
+    (windmove-left)
+    ; Hmmmm for some reason it changes my buffer to *scratch*
+    (previous-buffer))
+
+  (add-hook 'j-mode-hook 'j-hooks)
+#+END_SRC
+
+After evaluating a line, move the cursor back to the file.
+
+Unsure if we need an entire *hook* for this, but it works :)
+
+#+BEGIN_SRC emacs-lisp
+  (defun execute-line-and-go-back ()
+    (interactive)
+    (j-console-execute-line)
+    (windmove-left))
+
+  (defun set-keys ()
+    (local-set-key (kbd "C-c C-l") 'execute-line-and-go-back))
+  
+  (add-hook 'j-mode-hook 'set-keys)
+#+END_SRC

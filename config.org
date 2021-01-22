@@ -32,6 +32,18 @@ Then initialize latex support in emacs.
 		 ("\\section{%s}" . "\\section*{%s}")))
 #+END_SRC
 
+Add syntax highlighting using the =minted= package.
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'org-latex-packages-alist '("" "minted"))
+  (setq org-latex-listings 'minted)
+
+  (setq org-latex-pdf-process
+	'("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+	  "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+	  "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+#+END_SRC
+
 * Babel
 
 Support a few languages
